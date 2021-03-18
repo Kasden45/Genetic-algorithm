@@ -5,6 +5,7 @@ from Individual import Individual
 from PCB_Board import PCB_Board
 from Pair import Pair
 from Point import Point
+from Problem import Problem
 from Segment import Segment
 from Trace import Trace
 import cProfile
@@ -118,10 +119,17 @@ if __name__ == '__main__':
 
 
     pop.best_individual().plot_segments()
+    #
+    #
+    #
+    # print(pop.tournament_operator(5))
+    # print(pop.roulette_operator())
+    # print(pop.tournament_operator(8))
+    problem = Problem()
+    profile_problem = cProfile.Profile()
+    profile_problem.runcall(lambda: problem.solve_problem())
+    ps = pstats.Stats(profile_problem)
+    ps.print_stats()
 
 
-
-    print(pop.tournament_operator(5))
-    print(pop.roulette_operator())
-    print(pop.tournament_operator(8))
     #print("pairs", [point for point in pop.best_individual().board.points_in_pairs()])

@@ -1,9 +1,11 @@
+import copy
 import random
 import numpy as np
 import pylab as pl
 from matplotlib import collections as mc, ticker
 from Fitness import Fitness
 from Generator import RandomIndividualGenerator
+from Individual import Individual
 
 
 class Population:
@@ -51,7 +53,7 @@ class Population:
         temp_ranking.sort(key=lambda ind: ind[1])
         for i in range(len(temp_ranking)):
             self.fitness_ranking[i+1] = temp_ranking[i]
-        print(self.fitness_ranking)
+        # print(self.fitness_ranking) ------------ WRÓCIC
 
     def set_fitness(self, col=10, tot_len=5, tot_seg=3, out=1, len_out=1):
         """
@@ -85,7 +87,7 @@ class Population:
 
         tournament_participants.sort(key=lambda part: part[0])
 
-        self.plot_tournament(rands, tournament_participants)
+        # self.plot_tournament(rands, tournament_participants)
         return tournament_participants[0][1][0]
 
     def get_roulette_weight(self, number):
@@ -117,6 +119,8 @@ class Population:
                 print("Segments:", segments)
                 return self.fitness_ranking[rank]
 
+
+
     def plot_tournament(self, guesses, participants):
 
         fig, ax = pl.subplots()
@@ -147,5 +151,3 @@ class Population:
 
         pass
 
-    def ruletka(self):
-        pass

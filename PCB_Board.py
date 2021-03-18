@@ -5,11 +5,13 @@ from Point import Point
 
 
 class PCB_Board:
-    def __init__(self):
+    def __init__(self, board_txt = None):
         self._pairs = {}
         self._matrix = np.empty([0, 0])
         self._x = 0
         self._y = 0
+        if board_txt is not None:
+            self.read_board(board_txt)
 
     def points_in_pairs(self):
         points = []
