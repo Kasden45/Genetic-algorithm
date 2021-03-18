@@ -11,6 +11,13 @@ class PCB_Board:
         self._x = 0
         self._y = 0
 
+    def points_in_pairs(self):
+        points = []
+        for pair, val in self._pairs.items():
+            points.append(val.beg.coords())
+            points.append(val.end.coords())
+        return points
+
     def add_pair(self, pair):
         """
         Adds pair to the board

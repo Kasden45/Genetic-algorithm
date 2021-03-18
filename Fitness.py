@@ -28,9 +28,7 @@ class Fitness:
         all_points = []
         for trace in individual.traces:
             all_points.extend(trace.trace_route())
-
-        return len(set(str(point) for point in all_points if all_points.count(point) > 1))
-
+        return len(set(individual.all_collisions()))
 
     def out_of_bounds(self, individual):
         """
