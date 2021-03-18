@@ -1,3 +1,5 @@
+import copy
+
 from Populations import Population
 from Fitness import Fitness
 from Generator import RandomIndividualGenerator
@@ -104,32 +106,38 @@ if __name__ == '__main__':
     # ax.add_patch(cir)
     # pl.show()
 
-    pop = Population()
-    pop.set_fitness(1000, 25, 2, 2000, 1000)
-
-    profile = cProfile.Profile()
-    profile.runcall(lambda: pop.generate_population(board0, 50))
-    ps = pstats.Stats(profile)
-    ps.print_stats()
-
-
-    pop.grade_population()
-    print(pop.best_individual())
-
-
-
-    pop.best_individual().plot_segments()
+    # pop = Population()
+    # pop.set_fitness(1000, 25, 2, 2000, 1000)
     #
+    # profile = cProfile.Profile()
+    # profile.runcall(lambda: pop.generate_population(board0, 50))
+    # ps = pstats.Stats(profile)
+    # ps.print_stats()
+
+    #
+    # pop.grade_population()
+    # print(pop.best_individual())
+    #
+    #
+    #
+    # pop.best_individual().plot_segments()
+    # #
     #
     #
     # print(pop.tournament_operator(5))
     # print(pop.roulette_operator())
     # print(pop.tournament_operator(8))
+
+
     problem = Problem()
     profile_problem = cProfile.Profile()
     profile_problem.runcall(lambda: problem.solve_problem())
     ps = pstats.Stats(profile_problem)
     ps.print_stats()
 
+    s3 = Segment(Point(2, 3), Point(4, 3))
 
-    #print("pairs", [point for point in pop.best_individual().board.points_in_pairs()])
+    s4 = Segment(Point(3, 1), Point(3, 5))
+
+    tablica = [s3, s4]
+

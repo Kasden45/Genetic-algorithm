@@ -22,6 +22,65 @@ class Segment(Pair):
             lista.append(Point(self.end.x, self.end.y))
             return lista
 
+    def lengthen_segment(self):
+        direction = self.direction()
+        if direction == 0:
+            self.end.y -= 1
+        elif direction == 1:
+            self.end.x -= 1
+        elif direction == 2:
+            self.end.x += 1
+        elif direction == 3:
+            self.end.y += 1
+
+    def shorten_segment(self):
+        direction = self.direction()
+        if direction == 0:
+            self.end.y += 1
+        elif direction == 1:
+            self.end.x += 1
+        elif direction == 2:
+            self.end.x -= 1
+        elif direction == 3:
+            self.end.y -= 1
+
+    def cut_segment_back(self):
+        direction = self.direction()
+        if direction == 0:
+            self.beg.y -= 1
+        elif direction == 1:
+            self.beg.x -= 1
+        elif direction == 2:
+            self.beg.x += 1
+        elif direction == 3:
+            self.beg.y += 1
+
+    def extend_segment_back(self):
+        direction = self.direction()
+        if direction == 0:
+            self.beg.y += 1
+        elif direction == 1:
+            self.beg.x += 1
+        elif direction == 2:
+            self.beg.x -= 1
+        elif direction == 3:
+            self.beg.y -= 1
+
+
+
+    def move_in_direction(self, direction):
+        if direction == 0:
+            self.beg.y -= 1
+            self.end.y -= 1
+        elif direction == 1:
+            self.beg.x -= 1
+            self.end.x -= 1
+        elif direction == 2:
+            self.beg.x += 1
+            self.end.x += 1
+        elif direction == 3:
+            self.beg.y += 1
+            self.end.y += 1
     def direction(self):
         """
 
@@ -42,7 +101,12 @@ class Segment(Pair):
         return super().__str__() + " = " + str(list(str(point) for point in self.middle_points()))
 
     def __len__(self):
-        return len(self.middle_points()) - 1
+        direction = self.direction()
+        if direction == 0 or direction == 3:
+            return abs(self.end.y - self.beg.y)
+        elif direction == 1 or direction == 2:
+            return abs(self.end.x - self.beg.x)
+
 
     def collisions(self, other):
         """

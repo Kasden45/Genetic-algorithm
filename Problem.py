@@ -13,7 +13,7 @@ len_out_weight = 1000
 
 
 class Problem:
-    def __init__(self, px=0.8, pm=0.8, size=2000, iterations=3, selection="Tournament", board_file="zad1.txt", n=10):
+    def __init__(self, px=0.8, pm=0.8, size=200, iterations=3, selection="Tournament", board_file="zad0.txt", n=10):
         self.px = px
         self.pm = pm
         self.all_populations = []
@@ -47,8 +47,26 @@ class Problem:
             mutable = copy.deepcopy(child)
         else:
             mutable = child
+        print("Pre")
+        mutable.plot_segments()
+        for i in range(len(mutable.traces)):
+            # if mutate than mutate random segment in trace
 
+            if random.random() < pm and len(mutable.traces[i].segments) > 1:
+                segment_index = random.randint(0, len(mutable.traces[i].segments[:-1])-1)
+                if random.random() < 0.5:
+                    # Wydłużanie o 1
+                    mutable.traces[i].lengthen_segment(segment_index)
+                    print("Post lengthen")
+                    mutable.plot_segments()
+                else:
+                    continue
+                    # Skracanie o 1
+                    mutable.traces[i].shorten_segment(segment_index)
+                    print("Post shorten")
+                    mutable.plot_segments()
 
+        print("Mutable", mutable)
 
         return mutable
 

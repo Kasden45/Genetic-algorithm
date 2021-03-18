@@ -7,4 +7,4 @@ class Pair:
         return "({},{}) -> ({},{})".format(self.beg.x, self.beg.y, self.end.x, self.end.y)
 
     def __eq__(self, other):
-        return self.beg == other.beg and self.end == other.end
+        return self.beg.coords() == other.beg.coords() and self.end.coords() == other.end.coords()
