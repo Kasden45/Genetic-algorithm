@@ -66,10 +66,17 @@ class Individual:
         cols = [point for point in collisions if collisions.count(point) > 1]
         return set(cols)
 
-    def plot_segments(self):
+    def plot_segments(self, title="Title", fitness=None):
+        segments = fitness.total_segments(self)
+        length = fitness.total_length(self)
+        collisions = fitness.collisions(self)
+        score = fitness.count_fitness(self)
+
+
         fig, ax = pl.subplots()
         circles = []
         pl.grid()
+        pl.title("{}\nScore: {}".format(title, score))
         for trace in self.traces:
             lines = []
             color = "#" + ''.join([random.choice('0123456789ABCDEF') for j in range(6)])
@@ -83,7 +90,7 @@ class Individual:
 
         for circle in circles:
             ax.add_patch(circle)
-
+        ax.invert_yaxis()
         c = np.array(["black"])
         lines = [[(0, 0), (0, self.board.y)],
                  [(0, self.board.y), (self.board.x, self.board.y)],
@@ -93,6 +100,9 @@ class Individual:
         ax.add_collection(lc)
         ax.margins(0.1)
         ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
+        ax.yaxis.set_major_locator(ticker.MultipleLocator(1))
+        pl.figtext(0.5, 0.01, "Segments:{} Length:{} Collisions:{}".format(segments, length, collisions), ha="center", fontsize=14,
+                    bbox={"facecolor": "orange", "alpha": 0.5, "pad": 5})
         print("Collide")
         for point in self.all_collisions():
             print((point.x, point.y))

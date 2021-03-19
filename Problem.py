@@ -25,11 +25,10 @@ class Problem:
         self.tournament_n = n
 
     def crossover_operator(self, p1: Individual, p2: Individual):
-        Px = 0.5
         new_traces_1 = []
         new_traces_2 = []
         for i in range(len(p1.traces)):
-            if i % 2 == 0 and random.random() > Px:
+            if random.random() > self.px:
                 new_traces_1.append(copy.deepcopy(p2.traces[i]))
                 new_traces_2.append(copy.deepcopy(p1.traces[i]))
             else:
@@ -43,7 +42,6 @@ class Problem:
 
     def mutation_operator(self, child, crossed, pm):
         if not crossed:
-        #if True:
             mutable = copy.deepcopy(child)
         else:
             mutable = child
@@ -63,11 +61,7 @@ class Problem:
                     # Skracanie o 1
                     mutable.traces[i].shorten_segment(segment_index)
                     #mutable.plot_segments()
-                mutable.traces[i].trace_route()
-        # try:
-        #     print("Mutable:", mutable)
-        # except:
-        #     pass
+                #mutable.traces[i].trace_route()
 
         return mutable
 
@@ -111,10 +105,10 @@ class Problem:
 
             new_population.grade_population()
             new_best_score = new_population.fitness_ranking[1][1]
-            new_population.best_individual().plot_segments()
+            new_population.best_individual().plot_segments("Best solution in iteration no.{}".format(counter), new_population.fitness)
             print(counter, "pop best:", new_best_score, "ovr best", self.best_solution[1])
 
             if new_best_score < self.best_solution[1]:
                 self.best_solution = (new_population.best_individual(), new_best_score)
             previous_population = new_population
-        return self.best_solution
+        return self.best_solution, previous_population.fitness

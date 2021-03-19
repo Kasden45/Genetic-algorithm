@@ -44,9 +44,6 @@ class Segment(Pair):
         elif direction == 3:
             self.end = Point(self.end.x, self.end.y-1)
 
-        if self.beg == self.end:
-            print("WTF 0")
-            raise Exception("CO JEST")
 
     def cut_segment_back(self):
         direction = self.direction()

@@ -135,7 +135,7 @@ if __name__ == '__main__':
     result = profile_problem.runcall(lambda: problem.solve_problem())
     ps = pstats.Stats(profile_problem)
     ps.print_stats()
-    result[0].plot_segments()
+    result[0][0].plot_segments("Best solution overall", result[1])
     # pop.generate_population(board0, 50)
 
     # result = problem.mutation_operator(pop.best_individual(), True, 0.9)
