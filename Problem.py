@@ -5,14 +5,14 @@ from Individual import Individual
 from PCB_Board import PCB_Board
 from Populations import Population
 from Parameters import *
-collisions_weight = 1000
-total_len_weight = 25
-total_segments_weight = 2
-out_weight = 2000
-len_out_weight = 1000
+collisions_weight = 100
+total_len_weight = 4
+total_segments_weight = 1
+out_weight = 200
+len_out_weight = 100
 
 class Problem:
-    def __init__(self, px=0.6, pm=0.5, size=50, iterations=10, selection="Tournament", board_file="zad2.txt", n=20):
+    def __init__(self, px=0.6, pm=0.5, size=1000, iterations=20, selection="Tournament", board_file="zad3.txt", n=20):
         self.px = px
         self.pm = pm
         self.all_populations = []
@@ -45,23 +45,18 @@ class Problem:
             mutable = copy.deepcopy(child)
         else:
             mutable = child
-        #mutable.plot_segments()
         for i in range(len(mutable.traces)):
             # if mutate than mutate random segment in trace
             if random.random() < pm and len(mutable.traces[i].segments) > 1:
 
                 segment_index = random.randint(0, len(mutable.traces[i].segments[:-1])-1)
-                #print("trace: ", i, "segment:", segment_index)
                 if random.random() < 0.5:
-                    # Wydłużanie o 1
+                    # Extend by 1
                     mutable.traces[i].lengthen_segment(segment_index)
-                    #mutable.plot_segments()
                 else:
                     pass
-                    # Skracanie o 1
+                    # Shorten by 1
                     mutable.traces[i].shorten_segment(segment_index)
-                    #mutable.plot_segments()
-                #mutable.traces[i].trace_route()
 
         return mutable
 
@@ -105,7 +100,7 @@ class Problem:
 
             new_population.grade_population()
             new_best_score = new_population.fitness_ranking[1][1]
-            new_population.best_individual().plot_segments("Best solution in iteration no.{}".format(counter), new_population.fitness)
+            #new_population.best_individual().plot_segments("Best solution in iteration no.{}".format(counter), new_population.fitness)
             print(counter, "pop best:", new_best_score, "ovr best", self.best_solution[1])
 
             if new_best_score < self.best_solution[1]:

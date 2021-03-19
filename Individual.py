@@ -114,8 +114,6 @@ class Individual:
         pl.waitforbuttonpress(0)
         #pl.show()
 
-    def genome(self):
-        pass
 
     def __str__(self):
         """
