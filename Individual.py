@@ -100,7 +100,9 @@ class Individual:
 
         # pl.ylim([0, self.board.y])
         # pl.xlim([0, self.board.x])
-        pl.show()
+        pl.draw()
+        pl.waitforbuttonpress(0)
+        #pl.show()
 
     def genome(self):
         pass

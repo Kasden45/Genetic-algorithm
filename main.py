@@ -106,21 +106,22 @@ if __name__ == '__main__':
     # ax.add_patch(cir)
     # pl.show()
 
-    # pop = Population()
-    # pop.set_fitness(1000, 25, 2, 2000, 1000)
+    #pop = Population()
+    #pop.set_fitness(1000, 25, 2, 2000, 1000)
     #
     # profile = cProfile.Profile()
     # profile.runcall(lambda: pop.generate_population(board0, 50))
     # ps = pstats.Stats(profile)
     # ps.print_stats()
 
-    #
-    # pop.grade_population()
+
+    #pop.generate_population(board0, 1000)
+    #pop.grade_population()
     # print(pop.best_individual())
     #
     #
     #
-    # pop.best_individual().plot_segments()
+    #pop.best_individual().plot_segments()
     # #
     #
     #
@@ -128,16 +129,22 @@ if __name__ == '__main__':
     # print(pop.roulette_operator())
     # print(pop.tournament_operator(8))
 
-
+    #print(pop.best_individual())
     problem = Problem()
     profile_problem = cProfile.Profile()
-    profile_problem.runcall(lambda: problem.solve_problem())
+    result = profile_problem.runcall(lambda: problem.solve_problem())
     ps = pstats.Stats(profile_problem)
     ps.print_stats()
+    result[0].plot_segments()
+    # pop.generate_population(board0, 50)
 
-    s3 = Segment(Point(2, 3), Point(4, 3))
+    # result = problem.mutation_operator(pop.best_individual(), True, 0.9)
+    # result.plot_segments()
 
-    s4 = Segment(Point(3, 1), Point(3, 5))
-
-    tablica = [s3, s4]
+    # s3 = Segment(Point(2, 3), Point(4, 3))
+    #
+    # s4 = Segment(Point(3, 1), Point(3, 5))
+    # print(s3.direction())
+    # print(s4.direction())
+    # tablica = [s3, s4]
 

@@ -87,7 +87,7 @@ class Population:
 
         tournament_participants.sort(key=lambda part: part[0])
 
-        # self.plot_tournament(rands, tournament_participants)
+        #self.plot_tournament(rands, tournament_participants)
         return tournament_participants[0][1][0]
 
     def get_roulette_weight(self, number):
@@ -95,7 +95,6 @@ class Population:
         return number/total
 
     def roulette_operator(self):
-        print("HI")
         rand = random.random()
         weights = []
         probabilities = []
@@ -106,7 +105,7 @@ class Population:
 
         for i in range(len(self.fitness_ranking)):
             probabilities.append(weights[i] / weights_sum)
-        print("Suma pstw =", sum(probabilities))
+        #print("Suma pstw =", sum(probabilities))
         section_start = 0
         for i in range(len(self.fitness_ranking)):
             section_end = section_start + probabilities[i]
@@ -115,9 +114,9 @@ class Population:
 
         for rank, segment in segments.items():
             if segment[0] < rand <= segment[1]:
-                print(rand, "is in", (segment[0], segment[1]))
-                print("Segments:", segments)
-                return self.fitness_ranking[rank]
+                #print(rand, "is in", (segment[0], segment[1]))
+                #print("Segments:", segments)
+                return self.fitness_ranking[rank][0]
 
 
 
@@ -143,7 +142,7 @@ class Population:
         ax.add_collection(lc)
 
         ax.margins(0.1)
-        ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
+        #ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
 
         # pl.ylim([0, self.board.y])
         pl.xlim([0, len(self.fitness_ranking)])

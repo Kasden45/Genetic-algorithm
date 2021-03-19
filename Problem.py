@@ -4,16 +4,15 @@ import random
 from Individual import Individual
 from PCB_Board import PCB_Board
 from Populations import Population
-
+from Parameters import *
 collisions_weight = 1000
 total_len_weight = 25
 total_segments_weight = 2
 out_weight = 2000
 len_out_weight = 1000
 
-
 class Problem:
-    def __init__(self, px=0.8, pm=0.8, size=200, iterations=3, selection="Tournament", board_file="zad0.txt", n=10):
+    def __init__(self, px=0.6, pm=0.5, size=50, iterations=10, selection="Tournament", board_file="zad2.txt", n=20):
         self.px = px
         self.pm = pm
         self.all_populations = []
@@ -44,29 +43,31 @@ class Problem:
 
     def mutation_operator(self, child, crossed, pm):
         if not crossed:
+        #if True:
             mutable = copy.deepcopy(child)
         else:
             mutable = child
-        print("Pre")
-        mutable.plot_segments()
+        #mutable.plot_segments()
         for i in range(len(mutable.traces)):
             # if mutate than mutate random segment in trace
-
             if random.random() < pm and len(mutable.traces[i].segments) > 1:
+
                 segment_index = random.randint(0, len(mutable.traces[i].segments[:-1])-1)
+                #print("trace: ", i, "segment:", segment_index)
                 if random.random() < 0.5:
                     # Wydłużanie o 1
                     mutable.traces[i].lengthen_segment(segment_index)
-                    print("Post lengthen")
-                    mutable.plot_segments()
+                    #mutable.plot_segments()
                 else:
-                    continue
+                    pass
                     # Skracanie o 1
                     mutable.traces[i].shorten_segment(segment_index)
-                    print("Post shorten")
-                    mutable.plot_segments()
-
-        print("Mutable", mutable)
+                    #mutable.plot_segments()
+                mutable.traces[i].trace_route()
+        # try:
+        #     print("Mutable:", mutable)
+        # except:
+        #     pass
 
         return mutable
 
@@ -107,12 +108,13 @@ class Problem:
                 new_population.add_individual(self.mutation_operator(child1, crossed, self.pm))
                 if child2 is not None and len(new_population.population) < self.population_size:
                     new_population.add_individual(self.mutation_operator(child2, crossed, self.pm))
+
             new_population.grade_population()
             new_best_score = new_population.fitness_ranking[1][1]
+            new_population.best_individual().plot_segments()
+            print(counter, "pop best:", new_best_score, "ovr best", self.best_solution[1])
 
-            print(counter, "best:", new_best_score)
-
-            if new_best_score > self.best_solution[1]:
+            if new_best_score < self.best_solution[1]:
                 self.best_solution = (new_population.best_individual(), new_best_score)
             previous_population = new_population
         return self.best_solution

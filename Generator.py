@@ -79,7 +79,7 @@ def dist_from_target(point, trace):
 class RandomIndividualGenerator:
     def __init__(self, board=None):
         self.board = board
-        self.dir = {0: "UP", 1: "RIGHT", 3: "DOWN", 2: "LEFT"}
+        self.dir = {0: "UP", 2: "RIGHT", 3: "DOWN", 1: "LEFT"}
         self.individual = Individual(board)
         self.dict_tr = {}
         self.population = []

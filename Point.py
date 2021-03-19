@@ -5,6 +5,7 @@ class Point:
 
     def coords(self):
         return self.x, self.y
+
     def __str__(self):
         return "({},{})".format(self.x, self.y)
 

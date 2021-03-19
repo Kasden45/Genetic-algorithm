@@ -25,62 +25,68 @@ class Segment(Pair):
     def lengthen_segment(self):
         direction = self.direction()
         if direction == 0:
-            self.end.y -= 1
+            self.end = Point(self.end.x, self.end.y-1)
         elif direction == 1:
-            self.end.x -= 1
+            self.end = Point(self.end.x - 1, self.end.y)
         elif direction == 2:
-            self.end.x += 1
+            self.end = Point(self.end.x + 1, self.end.y)
         elif direction == 3:
-            self.end.y += 1
+            self.end = Point(self.end.x, self.end.y+1)
 
     def shorten_segment(self):
         direction = self.direction()
         if direction == 0:
-            self.end.y += 1
+            self.end = Point(self.end.x, self.end.y+1)
         elif direction == 1:
-            self.end.x += 1
+            self.end = Point(self.end.x + 1, self.end.y)
         elif direction == 2:
-            self.end.x -= 1
+            self.end = Point(self.end.x - 1, self.end.y)
         elif direction == 3:
-            self.end.y -= 1
+            self.end = Point(self.end.x, self.end.y-1)
+
+        if self.beg == self.end:
+            print("WTF 0")
+            raise Exception("CO JEST")
 
     def cut_segment_back(self):
         direction = self.direction()
         if direction == 0:
-            self.beg.y -= 1
+            self.beg = Point(self.beg.x, self.beg.y-1)
         elif direction == 1:
-            self.beg.x -= 1
+            self.beg = Point(self.beg.x-1, self.beg.y)
         elif direction == 2:
-            self.beg.x += 1
+            self.beg = Point(self.beg.x+1, self.beg.y)
         elif direction == 3:
-            self.beg.y += 1
+            self.beg = Point(self.beg.x, self.beg.y+1)
 
     def extend_segment_back(self):
         direction = self.direction()
         if direction == 0:
-            self.beg.y += 1
+            self.beg = Point(self.beg.x, self.beg.y+1)
         elif direction == 1:
-            self.beg.x += 1
+            self.beg = Point(self.beg.x+1, self.beg.y)
         elif direction == 2:
-            self.beg.x -= 1
+            self.beg = Point(self.beg.x-1, self.beg.y)
         elif direction == 3:
-            self.beg.y -= 1
+            self.beg = Point(self.beg.x, self.beg.y-1)
 
 
 
     def move_in_direction(self, direction):
+
         if direction == 0:
-            self.beg.y -= 1
-            self.end.y -= 1
+            self.beg = Point(self.beg.x, self.beg.y-1)
+            self.end = Point(self.end.x, self.end.y-1)
         elif direction == 1:
-            self.beg.x -= 1
-            self.end.x -= 1
+            self.beg = Point(self.beg.x-1, self.beg.y)
+            self.end = Point(self.end.x-1, self.end.y)
         elif direction == 2:
-            self.beg.x += 1
-            self.end.x += 1
+            self.beg = Point(self.beg.x + 1, self.beg.y)
+            self.end = Point(self.end.x + 1, self.end.y)
         elif direction == 3:
-            self.beg.y += 1
-            self.end.y += 1
+            self.beg = Point(self.beg.x, self.beg.y + 1)
+            self.end = Point(self.end.x, self.end.y + 1)
+
     def direction(self):
         """
 
@@ -93,9 +99,9 @@ class Segment(Pair):
                 return 3
         elif self.beg.y == self.end.y:
             if self.beg.x > self.end.x:
-                return 2
-            else:
                 return 1
+            else:
+                return 2
 
     def __str__(self):
         return super().__str__() + " = " + str(list(str(point) for point in self.middle_points()))
