@@ -1,5 +1,7 @@
 import copy
 
+import numpy as np
+
 from Populations import Population
 from Fitness import Fitness
 from Generator import RandomIndividualGenerator
@@ -9,6 +11,7 @@ from Pair import Pair
 from Point import Point
 from Problem import Problem
 from Segment import Segment
+from Tester import Tester
 from Trace import Trace
 import cProfile
 import pstats
@@ -132,9 +135,9 @@ if __name__ == '__main__':
     """
     TESTOWANIE PROBLEMU
     """
-    problem = Problem()
-    result = problem.solve_problem()
-    result[0][0].plot_segments("Best solution overall", result[1])
+    # problem = Problem()
+    # result = problem.solve_problem()
+    # result[0][0].plot_segments("Best solution overall", result[1])
 
     """
         TESTOWANIE OPERATORÓW
@@ -153,101 +156,108 @@ if __name__ == '__main__':
     # 1. (1,3) -> (5,3)
     # 2. (3,1) -> (3,3)
 
-    i1 = Individual(board0)
-    i2 = Individual(board0)
-    i3 = Individual(board0)
-    i4 = Individual(board0)
-    i5 = Individual(board0)
+    # i1 = Individual(board0)
+    # i2 = Individual(board0)
+    # i3 = Individual(board0)
+    # i4 = Individual(board0)
+    # i5 = Individual(board0)
+    #
+    # t1_1 = Trace(Pair(Point(1, 3), Point(5, 3)))
+    # t1_2 = Trace(Pair(Point(3, 1), Point(3, 3)))
+    #
+    # s1 = Segment(Point(1, 3), Point(1, 4))
+    # s2 = Segment(Point(1, 4), Point(4, 4))
+    # s3 = Segment(Point(4, 4), Point(4, 5))
+    # s4 = Segment(Point(4, 5), Point(5, 5))
+    # s5 = Segment(Point(5, 5), Point(5, 3))
+    #
+    # t1_1.add_segment(s1)
+    # t1_1.add_segment(s2)
+    # t1_1.add_segment(s3)
+    # t1_1.add_segment(s4)
+    # t1_1.add_segment(s5)
+    #
+    # s6 = Segment(Point(3, 1), Point(4, 1))
+    # s7 = Segment(Point(4, 1), Point(4, 3))
+    # s8 = Segment(Point(4, 3), Point(3, 3))
+    #
+    # t1_2.add_segment(s6)
+    # t1_2.add_segment(s7)
+    # t1_2.add_segment(s8)
+    #
+    # i1.add_trace(t1_1)
+    # i1.add_trace(t1_2)
+    #
+    # t2_1 = generate_trace([(1, 3), (1, 5), (3, 5), (3, 3), (5, 3)])
+    # t2_2 = generate_trace([(3, 1), (2, 1), (2, 3), (3, 3)])
+    # i2.add_trace(t2_1)
+    # i2.add_trace(t2_2)
+    #
+    # t3_1 = generate_trace([(1, 3), (1, 5), (4, 5), (4, 4), (5, 4), (5, 3)])
+    # t3_2 = generate_trace([(3, 1), (3, 3)])
+    # i3.add_trace(t3_1)
+    # i3.add_trace(t3_2)
+    #
+    # t4_1 = generate_trace([(1, 3), (3, 3), (3, 6), (5, 6), (5, 3)])
+    # t4_2 = generate_trace([(3, 1), (3, 3)])
+    # i4.add_trace(t4_1)
+    # i4.add_trace(t4_2)
+    #
+    # t5_1 = generate_trace([(1, 3), (1, 4), (4, 4), (4, 3), (5, 3)])
+    # t5_2 = generate_trace([(3, 1), (2, 1), (2, 3), (3, 3)])
+    # i5.add_trace(t5_1)
+    # i5.add_trace(t5_2)
+    #
+    # f1 = Fitness(100, 10, 5, 100, 50)
+    #
+    # i1.plot_segments("", f1)
+    # i2.plot_segments("", f1)
+    # i3.plot_segments("", f1)
+    # i4.plot_segments("", f1)
+    # i5.plot_segments("", f1)
+    #
+    # p1 = Population()
+    # p1.add_individual(i1)
+    # p1.add_individual(i2)
+    # p1.add_individual(i3)
+    # p1.add_individual(i4)
+    # p1.add_individual(i5)
+    #
+    # p1.fitness = f1
+    # p1.grade_population()
+    #
+    # p1.tournament_operator(3, True)
+    # p1.tournament_operator(3, True)
+    #
+    # p1.roulette_operator(True)
+    # p1.roulette_operator(True)
+    #
+    # problem = Problem()
+    # i1.plot_segments("rodzic i1", f1)
+    # i2.plot_segments("rodzic i2", f1)
+    # child1, child2 = problem.crossover_operator(i1, i2)
+    # child1.plot_segments("dziecko i1", f1)
+    # child2.plot_segments("dziecko i2", f1)
+    #
+    #
+    # i1.plot_segments("i1 Przed mutacją", f1)
+    # mutated = problem.mutation_operator(i1, False, 0.9)  # 4 wydłużyć
+    # mutated.plot_segments("i1 Po mutacji", f1)
+    #
+    # i2.plot_segments("i2 Przed mutacją", f1)
+    # mutated = problem.mutation_operator(i2, True, 0.9)  # 4 wydłużyć
+    # i2.plot_segments("i2 Po mutacji", f1)
 
-    t1_1 = Trace(Pair(Point(1, 3), Point(5, 3)))
-    t1_2 = Trace(Pair(Point(3, 1), Point(3, 3)))
+    tester_res = Tester()
+    tester_res.load_results()
+    tester_res.results_to_txt()
 
-    s1 = Segment(Point(1, 3), Point(1, 4))
-    s2 = Segment(Point(1, 4), Point(4, 4))
-    s3 = Segment(Point(4, 4), Point(4, 5))
-    s4 = Segment(Point(4, 5), Point(5, 5))
-    s5 = Segment(Point(5, 5), Point(5, 3))
+    # tester = Tester()
+    # tester.set_iterations(3, 6, 3)
+    # tester.set_cross_prob(0.4, 0.6, 0.2)
+    # tester.set_mutation_prob(0.4, 0.6, 0.2)
+    # tester.set_population_size(50, 100, 500)
+    # tester.set_tournament_size(5, 10, 15)
+    # tester.do_testing()
 
-    t1_1.add_segment(s1)
-    t1_1.add_segment(s2)
-    t1_1.add_segment(s3)
-    t1_1.add_segment(s4)
-    t1_1.add_segment(s5)
-
-    s6 = Segment(Point(3, 1), Point(4, 1))
-    s7 = Segment(Point(4, 1), Point(4, 3))
-    s8 = Segment(Point(4, 3), Point(3, 3))
-
-    t1_2.add_segment(s6)
-    t1_2.add_segment(s7)
-    t1_2.add_segment(s8)
-
-    i1.add_trace(t1_1)
-    i1.add_trace(t1_2)
-
-    t2_1 = generate_trace([(1, 3), (1, 5), (3, 5), (3, 3), (5, 3)])
-    t2_2 = generate_trace([(3, 1), (2, 1), (2, 3), (3, 3)])
-    i2.add_trace(t2_1)
-    i2.add_trace(t2_2)
-
-    t3_1 = generate_trace([(1, 3), (1, 5), (4, 5), (4, 4), (5, 4), (5, 3)])
-    t3_2 = generate_trace([(3, 1), (3, 3)])
-    i3.add_trace(t3_1)
-    i3.add_trace(t3_2)
-
-    t4_1 = generate_trace([(1, 3), (3, 3), (3, 6), (5, 6), (5, 3)])
-    t4_2 = generate_trace([(3, 1), (3, 3)])
-    i4.add_trace(t4_1)
-    i4.add_trace(t4_2)
-
-    t5_1 = generate_trace([(1, 3), (1, 4), (4, 4), (4, 3), (5, 3)])
-    t5_2 = generate_trace([(3, 1), (2, 1), (2, 3), (3, 3)])
-    i5.add_trace(t5_1)
-    i5.add_trace(t5_2)
-
-    f1 = Fitness(100, 10, 5, 100, 50)
-
-    i1.plot_segments("", f1)
-    i2.plot_segments("", f1)
-    i3.plot_segments("", f1)
-    i4.plot_segments("", f1)
-    i5.plot_segments("", f1)
-
-    p1 = Population()
-    p1.add_individual(i1)
-    p1.add_individual(i2)
-    p1.add_individual(i3)
-    p1.add_individual(i4)
-    p1.add_individual(i5)
-
-    p1.fitness = f1
-    p1.grade_population()
-
-    p1.tournament_operator(3, True)
-    p1.tournament_operator(3, True)
-
-    p1.roulette_operator(True)
-    p1.roulette_operator(True)
-
-    problem = Problem()
-    i1.plot_segments("rodzic i1", f1)
-    i2.plot_segments("rodzic i2", f1)
-    child1, child2 = problem.crossover_operator(i1, i2)
-    child1.plot_segments("dziecko i1", f1)
-    child2.plot_segments("dziecko i2", f1)
-
-
-    i1.plot_segments("i1 Przed mutacją", f1)
-    mutated = problem.mutation_operator(i1, False, 0.9)  # 4 wydłużyć
-    mutated.plot_segments("i1 Po mutacji", f1)
-
-    i2.plot_segments("i2 Przed mutacją", f1)
-    mutated = problem.mutation_operator(i2, True, 0.9)  # 4 wydłużyć
-    i2.plot_segments("i2 Po mutacji", f1)
-
-
-    # pop.generate_population(board0, 50)
-
-    # result = problem.mutation_operator(pop.best_individual(), True, 0.9)
-    # result.plot_segments()
 

@@ -43,8 +43,10 @@ class Trace:
     def trace_route(self):
         route = [self.segments[0].beg]
         for segment in self.segments:
-            route.extend(segment.middle_points()[1:])
-
+            try:
+                route.extend(segment.middle_points()[1:])
+            except Exception:
+                print(self)
         return route
 
     def chek_solution_again(self):

@@ -71,7 +71,6 @@ class Problem:
         counter = 1
         for i in range(self.iterations):
             print("Iteration:", counter)
-            counter += 1
             new_population = Population()
             new_population.set_fitness(collisions_weight, total_len_weight, total_segments_weight, out_weight,
                                        len_out_weight)
@@ -100,10 +99,11 @@ class Problem:
 
             new_population.grade_population()
             new_best_score = new_population.fitness_ranking[1][1]
-            new_population.best_individual().plot_segments("Best solution in iteration no.{}".format(counter), new_population.fitness)
+            #new_population.best_individual().plot_segments("Best solution in iteration no.{}".format(counter), new_population.fitness)
             print(counter, "pop best:", new_best_score, "ovr best", self.best_solution[1])
 
             if new_best_score < self.best_solution[1]:
                 self.best_solution = (new_population.best_individual(), new_best_score)
             previous_population = new_population
+            counter += 1
         return self.best_solution, previous_population.fitness
