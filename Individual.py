@@ -59,12 +59,15 @@ class Individual:
         return points
 
     def all_collisions(self):
-        collisions = []
+        collisions = set()
+        no_collisions = 0
         for trace in self.traces:
             for point in trace.trace_route():
-                collisions.append(point)
-        cols = [point for point in collisions if collisions.count(point) > 1]
-        return set(cols)
+                if point not in collisions:
+                    collisions.add(point)
+                else:
+                    no_collisions += 1
+        return no_collisions
 
     def plot_segments(self, title="Title", fitness=None):
         segments = fitness.total_segments(self)
@@ -104,9 +107,9 @@ class Individual:
         pl.figtext(0.5, 0.01, "Segments:{} Length:{} Collisions:{}".format(segments, length, collisions), ha="center", fontsize=14,
                     bbox={"facecolor": "orange", "alpha": 0.5, "pad": 5})
         print("Collide")
-        for point in self.all_collisions():
-            print((point.x, point.y))
-            ax.plot(point.x, point.y, marker="x", color="black")
+        # for point in self.all_collisions():
+        #     print((point.x, point.y))
+        #     ax.plot(point.x, point.y, marker="x", color="black")
 
         # pl.ylim([0, self.board.y])
         # pl.xlim([0, self.board.x])

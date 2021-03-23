@@ -25,10 +25,7 @@ class Fitness:
         :param individual:
         :return: onumber of collisions
         """
-        all_points = []
-        for trace in individual.traces:
-            all_points.extend(trace.trace_route())
-        return len(set(individual.all_collisions()))
+        return individual.all_collisions()
 
     def out_of_bounds(self, individual):
         """

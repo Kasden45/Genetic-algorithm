@@ -12,7 +12,7 @@ out_weight = 200
 len_out_weight = 100
 
 class Problem:
-    def __init__(self, px=0.5, pm=0.5, size=2000, iterations=40, selection="Tournament", board_file="zad1.txt", n=30):
+    def __init__(self, px=0.5, pm=0.5, size=1000, iterations=5, selection="Tournament", board_file="zad1.txt", n=30):
         self.px = px
         self.pm = pm
         self.all_populations = []

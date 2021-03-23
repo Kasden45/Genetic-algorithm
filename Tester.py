@@ -5,7 +5,7 @@ from Problem import Problem
 
 
 class Tester:
-    def __init__(self):
+    def __init__(self, boards):
         pass
         self.iterations = None
         self.population_sizes = None
@@ -13,10 +13,24 @@ class Tester:
         self.cross_probs = None
         self.mutation_probs = None
         self.problem = None
-        self.boards = ["zad0.txt", "zad1.txt", "zad2.txt", "zad3.txt"]
+        self.boards = boards
         self.results = {}  # Name/parameters: [results]
+        self.tests = self.tests_done()
+
+    def tests_done(self):
+        with open("config.txt", "r+") as f:
+            line = f.readline()
+            separated = line.split()
+            if separated[0] == "tests":
+                return int(separated[2])
+
+    def increase_tests_done(self):
+        self.tests += 1
+        with open("config.txt", "w+") as f:
+            f.write("tests = {}".format(self.tests))
 
     def do_testing(self):
+        self.increase_tests_done()
         px = self.cross_probs[0]
         pm = self.mutation_probs[0]
         tournaments = self.tournament_sizes[0]
@@ -36,6 +50,7 @@ class Tester:
                             self.results[params].append(result)
                         self.save_results()
 
+
     def set_iterations(self, _from, _to, _interval):
         self.iterations = np.arange(_from, _to+1, _interval)
 
@@ -52,7 +67,7 @@ class Tester:
         self.mutation_probs = np.arange(_from, _to+0.001, _interval)
 
     def save_results(self):
-        filename = "Results_{}".format(3)
+        filename = "Results_{}".format(self.tests_done())
         try:
             with open(f"{os.curdir}/Results/{filename}", "wb") as f:
                 pickle.dump(self.results, f)
@@ -69,7 +84,8 @@ class Tester:
             print(e)
 
     def results_to_txt(self):
-        with open("Readable_results/res_3.txt", "w+") as f:
+        filename = input("Write filename to save results:")
+        with open("Readable_results/{}.txt".format(filename), "w+") as f:
             for params, result in self.results.items():
                 f.write(params)
                 f.write(" Best {}".format(np.max([pair[0][1] for pair in result])))

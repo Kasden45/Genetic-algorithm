@@ -46,7 +46,9 @@ class Trace:
             try:
                 route.extend(segment.middle_points()[1:])
             except Exception:
-                print(self)
+                print("ERROR OCCURRED")
+                for segment in self.segments:
+                    print("({},{})".format(segment.beg, segment.end))
         return route
 
     def chek_solution_again(self):

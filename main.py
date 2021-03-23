@@ -135,10 +135,13 @@ if __name__ == '__main__':
     """
     TESTOWANIE PROBLEMU
     """
-    # problem = Problem()
+    problem = Problem()
     # result = problem.solve_problem()
-    # result[0][0].plot_segments("Best solution overall", result[1])
-
+    profile = cProfile.Profile()
+    result = profile.runcall(lambda: problem.solve_problem())
+    result[0][0].plot_segments("Best solution overall", result[1])
+    ps = pstats.Stats(profile)
+    ps.print_stats()
     """
         TESTOWANIE OPERATORÓW
     """
@@ -248,16 +251,17 @@ if __name__ == '__main__':
     # mutated = problem.mutation_operator(i2, True, 0.9)  # 4 wydłużyć
     # i2.plot_segments("i2 Po mutacji", f1)
 
-    tester_res = Tester()
-    tester_res.load_results()
-    tester_res.results_to_txt()
 
-    # tester = Tester()
-    # tester.set_iterations(3, 6, 3)
-    # tester.set_cross_prob(0.4, 0.6, 0.2)
-    # tester.set_mutation_prob(0.4, 0.6, 0.2)
-    # tester.set_population_size(50, 100, 500)
+    # tester = Tester(["zad0.txt", "zad1.txt"])
+    # tester.set_iterations(10, 30, 10)
+    # tester.set_population_size(200, 1000, 400)
+    #
+    # tester.set_cross_prob(0.4, 0.6, 0.3)
+    # tester.set_mutation_prob(0.4, 0.6, 0.3)
     # tester.set_tournament_size(5, 10, 15)
     # tester.do_testing()
 
 
+    # tester_res = Tester(["zad0.txt", "zad1.txt"])
+    # tester_res.load_results()
+    # tester_res.results_to_txt()
