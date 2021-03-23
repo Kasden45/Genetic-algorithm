@@ -12,7 +12,7 @@ out_weight = 200
 len_out_weight = 100
 
 class Problem:
-    def __init__(self, px=0.6, pm=0.5, size=1000, iterations=20, selection="Tournament", board_file="zad3.txt", n=20):
+    def __init__(self, px=0.5, pm=0.5, size=2000, iterations=40, selection="Tournament", board_file="zad1.txt", n=30):
         self.px = px
         self.pm = pm
         self.all_populations = []
@@ -24,11 +24,11 @@ class Problem:
         self.best_solution = None
         self.tournament_n = n
 
-    def crossover_operator(self, p1: Individual, p2: Individual):
+    def crossover_operator(self, p1: Individual, p2: Individual, change=1):
         new_traces_1 = []
         new_traces_2 = []
         for i in range(len(p1.traces)):
-            if random.random() > self.px:
+            if i == change: # random.random() < self.px
                 new_traces_1.append(copy.deepcopy(p2.traces[i]))
                 new_traces_2.append(copy.deepcopy(p1.traces[i]))
             else:
@@ -100,7 +100,7 @@ class Problem:
 
             new_population.grade_population()
             new_best_score = new_population.fitness_ranking[1][1]
-            #new_population.best_individual().plot_segments("Best solution in iteration no.{}".format(counter), new_population.fitness)
+            new_population.best_individual().plot_segments("Best solution in iteration no.{}".format(counter), new_population.fitness)
             print(counter, "pop best:", new_best_score, "ovr best", self.best_solution[1])
 
             if new_best_score < self.best_solution[1]:

@@ -1,16 +1,7 @@
+import copy
+
 from Segment import Segment
 from Parameters import *
-l_s = 0
-l_u = 0
-l_l = 0
-l_o = 0
-l_d = 0
-
-s_s = 0
-s_u = 0
-s_l = 0
-s_o = 0
-s_d = 0
 class Trace:
     def __init__(self, pair, segments=None):
         if segments is None:
@@ -85,7 +76,7 @@ class Trace:
                     # Laczenie
                     #print("Laczenie")
                     if 3 - self.segments[i+3].direction() != next.direction():
-                        self.segments[i+3].beg = next.beg
+                        self.segments[i+3].beg = copy.deepcopy(next.beg)
                         self.segments.remove(next)
                         self.segments.remove(next_next)
                     else:

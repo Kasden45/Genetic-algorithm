@@ -230,6 +230,13 @@ if __name__ == '__main__':
     p1.roulette_operator(True)
 
     problem = Problem()
+    i1.plot_segments("rodzic i1", f1)
+    i2.plot_segments("rodzic i2", f1)
+    child1, child2 = problem.crossover_operator(i1, i2)
+    child1.plot_segments("dziecko i1", f1)
+    child2.plot_segments("dziecko i2", f1)
+
+
     i1.plot_segments("i1 Przed mutacją", f1)
     mutated = problem.mutation_operator(i1, False, 0.9)  # 4 wydłużyć
     mutated.plot_segments("i1 Po mutacji", f1)
