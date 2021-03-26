@@ -126,7 +126,9 @@ class RandomIndividualGenerator:
 
             if okay and last_direction is not None and random_direction == self.dir[last_direction]:
                 # if new point can extend last segment, then do it
-                extended_segment = Segment(trace.last_segment().beg, new_point)
+
+                #   extended_segment = Segment(trace.last_segment().beg, new_point)
+
                 # if self.individual.will_collide(extended_segment, trace) and (random.random() > 0.7):
                 #     # try to forbid the newly extended segment to collide with any trace
                 #     continue

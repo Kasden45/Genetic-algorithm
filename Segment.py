@@ -23,64 +23,108 @@ class Segment(Pair):
             return lista
 
     def lengthen_segment(self):
+        """
+        Increases segment's length by 1
+        :return: None
+        """
         direction = self.direction()
         if direction == 0:
+            # self.end.y -= 1
             self.end = Point(self.end.x, self.end.y-1)
         elif direction == 1:
+            # self.end.x -= 1
             self.end = Point(self.end.x - 1, self.end.y)
         elif direction == 2:
+            # self.end.x += 1
             self.end = Point(self.end.x + 1, self.end.y)
         elif direction == 3:
+            # self.end.y += 1
             self.end = Point(self.end.x, self.end.y+1)
 
     def shorten_segment(self):
+        """
+        Decreses segment's length by 1
+        :return:
+        """
         direction = self.direction()
         if direction == 0:
+            # self.end.y += 1
             self.end = Point(self.end.x, self.end.y+1)
         elif direction == 1:
+            # self.end.x += 1
             self.end = Point(self.end.x + 1, self.end.y)
         elif direction == 2:
+            # self.end.x -= 1
             self.end = Point(self.end.x - 1, self.end.y)
         elif direction == 3:
+            # self.end.y -= 1
             self.end = Point(self.end.x, self.end.y-1)
 
 
     def cut_segment_back(self):
+        """
+        Decreses segment's length by 1 by cutting its back
+        :return:
+        """
         direction = self.direction()
         if direction == 0:
+            # self.beg.y -= 1
             self.beg = Point(self.beg.x, self.beg.y-1)
         elif direction == 1:
+            # self.beg.x -= 1
             self.beg = Point(self.beg.x-1, self.beg.y)
         elif direction == 2:
+            # self.beg.x += 1
             self.beg = Point(self.beg.x+1, self.beg.y)
         elif direction == 3:
+            # self.beg.y += 1
             self.beg = Point(self.beg.x, self.beg.y+1)
 
     def extend_segment_back(self):
+        """
+        Increases segment's length by 1 by extending its back
+        :return:
+        """
         direction = self.direction()
         if direction == 0:
+            # self.beg.y += 1
             self.beg = Point(self.beg.x, self.beg.y+1)
         elif direction == 1:
+            # self.beg.x += 1
             self.beg = Point(self.beg.x+1, self.beg.y)
         elif direction == 2:
+            # self.beg.x -= 1
             self.beg = Point(self.beg.x-1, self.beg.y)
         elif direction == 3:
+            # self.beg.y -= 1
             self.beg = Point(self.beg.x, self.beg.y-1)
 
 
 
     def move_in_direction(self, direction):
-
+        """
+        Moves segment in the chosen direction
+        :param direction:
+        :return:
+        """
         if direction == 0:
+            # self.beg.y -= 1
+            # self.end.y -= 1
             self.beg = Point(self.beg.x, self.beg.y-1)
             self.end = Point(self.end.x, self.end.y-1)
         elif direction == 1:
+            # self.beg.x -= 1
+            # self.end.x -= 1
             self.beg = Point(self.beg.x-1, self.beg.y)
             self.end = Point(self.end.x-1, self.end.y)
         elif direction == 2:
+            # self.beg.x += 1
+            # self.end.x += 1
             self.beg = Point(self.beg.x + 1, self.beg.y)
             self.end = Point(self.end.x + 1, self.end.y)
         elif direction == 3:
+            # self.beg.y += 1
+            # self.end.y += 1
             self.beg = Point(self.beg.x, self.beg.y + 1)
             self.end = Point(self.end.x, self.end.y + 1)
 

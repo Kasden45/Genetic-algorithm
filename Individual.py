@@ -59,6 +59,10 @@ class Individual:
         return points
 
     def all_collisions(self):
+        """
+        Counts number of collisions in the solution
+        :return:
+        """
         collisions = set()
         no_collisions = 0
         for trace in self.traces:
@@ -69,7 +73,28 @@ class Individual:
                     no_collisions += 1
         return no_collisions
 
+    def all_collision_points(self):
+        """
+
+        :return: points that cause collisions
+        """
+        collisions = set()
+        colliding_points = set()
+        for trace in self.traces:
+            for point in trace.trace_route():
+                if point not in collisions:
+                    collisions.add(point)
+                else:
+                    colliding_points.add(point)
+        return colliding_points
+
     def plot_segments(self, title="Title", fitness=None):
+        """
+        Shows plot with the solution
+        :param title: title of the plot
+        :param fitness: fitness object with fitness function
+        :return:
+        """
         segments = fitness.total_segments(self)
         length = fitness.total_length(self)
         collisions = fitness.collisions(self)
@@ -107,9 +132,9 @@ class Individual:
         pl.figtext(0.5, 0.01, "Segments:{} Length:{} Collisions:{}".format(segments, length, collisions), ha="center", fontsize=14,
                     bbox={"facecolor": "orange", "alpha": 0.5, "pad": 5})
         print("Collide")
-        # for point in self.all_collisions():
-        #     print((point.x, point.y))
-        #     ax.plot(point.x, point.y, marker="x", color="black")
+        for point in self.all_collision_points():
+            print((point.x, point.y))
+            ax.plot(point.x, point.y, marker="x", color="black")
 
         # pl.ylim([0, self.board.y])
         # pl.xlim([0, self.board.x])
@@ -132,3 +157,4 @@ class Individual:
 
     def __eq__(self, other):
         return
+
