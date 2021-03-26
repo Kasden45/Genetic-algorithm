@@ -34,6 +34,7 @@ class Population:
         self.population = []
         self.generator.set_board(board)
         for i in range(size):
+            #print(i)
             self.population.append(self.generator.generate())
 
     def grade_population(self):
@@ -75,9 +76,15 @@ class Population:
         return self.fitness_ranking[1][0]
 
     def tournament_operator(self, n, show_plot=False):
+        """
+        Choses one of the individuals from the population based on their ranking
+        :param n: size of the tournament
+        :param show_plot: if true, shows plot with participants of the tournament
+        :return: chosen individual
+        """
         rands = []
         tournament_participants = []
-        while len(tournament_participants) < n:
+        while len(tournament_participants) < n*len(self.population):
             rand = random.choice(list(self.fitness_ranking.items()))
             rands.append(rand)
             if any([True for rank, value in tournament_participants if rank == rand[0]]):
@@ -90,11 +97,12 @@ class Population:
             self.plot_tournament(rands, tournament_participants)
         return tournament_participants[0][1][0]
 
-    def get_roulette_weight(self, number):
-        total = sum([ind[1] for _, ind in self.fitness_ranking.items()])
-        return number/total
-
     def roulette_operator(self, show_roulette=False):
+        """
+        Chooses one of the individuals from the population based on their ranking
+        :param show_roulette: if true, prints additional info describing the process of selection
+        :return: chosen individual
+        """
         rand = random.random()
         weights = []
         probabilities = []
