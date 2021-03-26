@@ -1,0 +1,7 @@
+0.5_0.5_50_10_Tournament_zad0.txt_0.1 Best 140 Worst 220 Avg 169.0 Std 29.393876913398138
+0.5_0.5_50_15_Tournament_zad0.txt_0.1 Best 140 Worst 175 Avg 146.5 Std 9.759610647971568
+0.5_0.5_50_20_Tournament_zad0.txt_0.1 Best 140 Worst 290 Avg 187.0 Std 47.07440918375928
+0.5_0.5_50_25_Tournament_zad0.txt_0.1 Best 140 Worst 200 Avg 159.5 Std 26.5941722939444
+0.5_0.5_50_30_Tournament_zad0.txt_0.1 Best 140 Worst 215 Avg 164.5 Std 29.87055406248769
+0.5_0.5_50_35_Tournament_zad0.txt_0.1 Best 140 Worst 225 Avg 163.0 Std 30.430248109405877
+0.5_0.5_50_40_Tournament_zad0.txt_0.1 Best 140 Worst 180 Avg 150.0 Std 15.165750888103101

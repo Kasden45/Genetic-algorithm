@@ -1,0 +1,3 @@
+0.5_0.5_200_20_Roulette_zad1.txt_0.1 Best 4170 Worst 5405 Avg 4763.0 Std 360.91688793959196
+0.5_0.5_200_20_Roulette_zad2.txt_0.1 Best 3880 Worst 5045 Avg 4332.5 Std 319.5954474018677
+0.5_0.5_200_20_Roulette_zad3.txt_0.1 Best 18375 Worst 22355 Avg 20250.0 Std 1251.323299551319
