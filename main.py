@@ -3,17 +3,9 @@ import pickle
 
 import numpy as np
 
-from Populations import Population
-from Fitness import Fitness
-from Generator import RandomIndividualGenerator
-from Individual import Individual
 from PCB_Board import PCB_Board
-from Pair import Pair
-from Point import Point
 from Problem import Problem
-from Segment import Segment
 from Tester import Tester, txt_to_csv
-from Trace import Trace
 import cProfile
 import pstats
 
